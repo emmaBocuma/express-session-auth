@@ -4,13 +4,13 @@ const morgan = require("morgan");
 const cors = require("cors");
 const Redis = require("ioredis");
 const connectRedis = require("connect-redis");
-require("dotenv").config();
 
 require("./db/mongoose");
 
 const { REDIS_OPTIONS, APP, SESSION } = require("./config");
 const { login, logout, signup, isAuthed } = require("./controllers/auth");
-const { signupValidator, validateAll } = require("./validators/auth");
+const { signupValidator } = require("./validators/auth");
+const { validateAll } = require("./validators");
 
 const app = express();
 

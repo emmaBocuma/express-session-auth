@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
+    "dev": "nodemon -r dotenv/config index.js",
     "debug": "DEBUG=express-session node index.js"
   },
   "author": "Emma Williams",
