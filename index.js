@@ -24,6 +24,11 @@ app.use(express.json());
 
 const RedisStore = connectRedis(session);
 const client = new Redis(process.env.REDISCLOUD_URL);
+client.on("connect", () => console.log("connected to Redis"));
+client.on("error", err => {
+  console.log("Redis Error:", err);
+});
+
 const store = new RedisStore({ client });
 app.use(session({ ...SESSION.SESSION_OPTIONS, store }));
 
