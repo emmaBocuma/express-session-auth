@@ -1,11 +1,11 @@
 const {
-  REDIS_PORT = 6379,
-  REDIS_HOST= "localhost",
-  REDIS_PASSWORD= "auth",
+  // REDIS_PORT = 6379,
+  REDISCLOUD_URL = "localhost",
+  REDIS_PASSWORD = "auth",
 } = process.env;
 
 exports.REDIS_OPTIONS = {
-  port: REDIS_PORT,
-  host: REDIS_HOST,
+  // port: REDIS_PORT,
+  host: REDISCLOUD_URL,
   // password: REDIS_PASSWORD,
-}
+};
