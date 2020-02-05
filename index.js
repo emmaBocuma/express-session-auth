@@ -27,6 +27,10 @@ const client = new Redis(REDIS_OPTIONS);
 const store = new RedisStore({ client });
 app.use(session({ ...SESSION.SESSION_OPTIONS, store }));
 
+app.get("/", (req, res) => {
+  res.send("<h1>Nothing to see here</h1>");
+});
+
 app.get("/isAuthed", isAuthed);
 
 app.post("/logout", logout);
