@@ -23,7 +23,7 @@ app.use(morgan("short"));
 app.use(express.json());
 
 const RedisStore = connectRedis(session);
-const client = new Redis(REDIS_OPTIONS);
+const client = new Redis(process.env.REDISCLOUD_URL);
 const store = new RedisStore({ client });
 app.use(session({ ...SESSION.SESSION_OPTIONS, store }));
 
