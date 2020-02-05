@@ -35,6 +35,7 @@ exports.login = async (req, res) => {
     const user = await User.findByCredentials(email, password);
 
     req.session.userId = user._id;
+    console.log(req.session);
     res.status(200).send("Success");
   } catch (e) {
     return res.status(400).send(e);
@@ -51,6 +52,8 @@ exports.signup = async (req, res) => {
     }
 
     await new User({ email, password }).save();
+    req.session.userId = user._id;
+    console.log(req.session);
     res.status(201).send("Success");
   } catch (e) {
     res.status(500).send(e);

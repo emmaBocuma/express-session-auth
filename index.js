@@ -19,6 +19,13 @@ if (APP.NODE_ENV === "development") {
   app.use(express.urlencoded({ extended: true }));
 }
 
+// if (APP.NODE_ENV === "production") {
+//   app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+//   app.use(express.urlencoded({ extended: true }));
+// }
+
+app.use(cors({ credentials: true }));
+
 app.use(morgan("short"));
 app.use(express.json());
 
