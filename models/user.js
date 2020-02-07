@@ -33,11 +33,9 @@ userSchema.pre("save", async function(next) {
 });
 
 userSchema.statics.findByCredentials = async function(email, password) {
-  console.log("findByCredentials");
   const authErrorMessage = "User and password combination not found";
   const user = await this.findOne({ email });
 
-  console.log(user);
   if (!user) {
     throw new Error(authErrorMessage);
   }

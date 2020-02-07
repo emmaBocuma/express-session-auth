@@ -1,4 +1,6 @@
-exports.REDIS_OPTIONS = require("./cache");
-exports.APP = require("./app");
-exports.DB = require("./db");
-exports.SESSION = require("./session");
+module.exports = {
+  ...require("./cache"),
+  ...require("./app"),
+  ...require("./db"),
+  ...require("./session"),
+};

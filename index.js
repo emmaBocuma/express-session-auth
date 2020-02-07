@@ -7,41 +7,29 @@ const connectRedis = require("connect-redis");
 
 require("./db/mongoose");
 
-const { REDIS_OPTIONS, APP, SESSION } = require("./config");
+const { REDIS_OPTIONS, PORT, NODE_ENV, SESSION_OPTIONS } = require("./config");
 const { login, logout, signup, isAuthed } = require("./controllers/auth");
 const { signupValidator } = require("./validators/auth");
 const { validateAll } = require("./validators");
 
 const app = express();
 
-if (APP.NODE_ENV === "development") {
+if (NODE_ENV === "development") {
   app.use(cors({ origin: "http://localhost:3000", credentials: true }));
   app.use(express.urlencoded({ extended: true }));
 }
-
-// if (APP.NODE_ENV === "production") {
-//   app.use(cors({ origin: "http://localhost:3000", credentials: true }));
-//   app.use(express.urlencoded({ extended: true }));
-// }
-
-app.use(cors({ credentials: true }));
 
 app.use(morgan("short"));
 app.use(express.json());
 
 const RedisStore = connectRedis(session);
-const client = new Redis(process.env.REDISCLOUD_URL);
-client.on("connect", () => console.log("connected to Redis"));
+const client = new Redis(REDIS_OPTIONS);
+client.on("connect", () => console.log("Connected to Redis"));
 client.on("error", err => {
-  console.log("Redis Error:", err);
+  console.log("Redis error:", err);
 });
-
 const store = new RedisStore({ client });
-app.use(session({ ...SESSION.SESSION_OPTIONS, store }));
-
-app.get("/", (req, res) => {
-  res.send("<h1>Nothing to see here</h1>");
-});
+app.use(session({ ...SESSION_OPTIONS, store }));
 
 app.get("/isAuthed", isAuthed);
 
@@ -51,6 +39,6 @@ app.post("/login", login);
 
 app.post("/signup", signupValidator, validateAll, signup);
 
-app.listen(APP.PORT, () => {
-  console.log(`Server running on port ${APP.PORT}`);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });

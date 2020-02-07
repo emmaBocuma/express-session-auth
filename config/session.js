@@ -10,7 +10,8 @@ exports.SESSION_OPTIONS = {
   saveUninitialized: false,
   cookie: {
     maxAge: ONE_HOUR,
-    // sameSite: 'none',
-    // secure: NODE_ENV === "production"
+    httpOnly: NODE_ENV === "production",
+    sameSite: "strict",
+    secure: NODE_ENV === "production",
   },
 };
