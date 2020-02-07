@@ -4,13 +4,12 @@ const morgan = require("morgan");
 const cors = require("cors");
 const Redis = require("ioredis");
 const connectRedis = require("connect-redis");
-
-require("./db/mongoose");
-
 const { REDIS_OPTIONS, PORT, NODE_ENV, SESSION_OPTIONS } = require("./config");
 const { login, logout, signup, isAuthed } = require("./controllers/auth");
 const { signupValidator } = require("./validators/auth");
 const { validateAll } = require("./validators");
+
+require("./db/mongoose");
 
 const app = express();
 
@@ -32,11 +31,8 @@ const store = new RedisStore({ client });
 app.use(session({ ...SESSION_OPTIONS, store }));
 
 app.get("/isAuthed", isAuthed);
-
 app.post("/logout", logout);
-
 app.post("/login", login);
-
 app.post("/signup", signupValidator, validateAll, signup);
 
 app.listen(PORT, () => {

@@ -2,23 +2,10 @@ const User = require("../models/user");
 
 exports.isAuthed = (req, res) => {
   const { userId } = req.session;
-  console.log("++++++++++++++++++++++");
-  console.log(req.session);
 
   if (!userId) {
     return res.status(401).send("Not authorised");
   }
-
-  //   User.findOne({ _id: userId }, (err, user) => {
-  //     if (err || !user) {
-  //         return res.status(401).json({
-  //             error: "Not authorised"
-  //         });
-  //     }
-
-  //     console.log("success")
-  //     return res.status(200).send("Success");
-  // });
 
   return res.status(200).send("Success");
 };
